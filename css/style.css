@@ -1,0 +1,107 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+  background: #f9f9f9;
+  color: #333;
+}
+
+header {
+background-image: url("/img/fondoazul.avif");
+background-size: cover;
+  color: white;
+  padding: 2rem;
+  text-align: center;
+ 
+}
+
+nav a {
+  color: white;
+  margin: 0 1rem;
+  text-decoration: none;
+}
+
+section {
+  padding: 2rem;
+  max-width: 800px;
+  margin: auto;
+}
+
+.proyecto {
+  background: white;
+  padding: 1rem;
+  margin: 1rem 0;
+  border-left: 5px solid #0099ff;
+}
+
+form input, form textarea {
+  width: 100%;
+  padding: 0.8rem;
+  margin: 0.5rem 0;
+  border: 1px solid #ccc;
+}
+
+form button {
+  background: #0099ff;
+  color: white;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  cursor: pointer;
+}
+
+footer {
+  text-align: center;
+  padding: 1rem;
+  background:url("/img/fondoazul.avif");
+  color:wheat;
+}
+
+#proyectos2{
+    max-width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    
+}
+#habilidades{
+background-image: url("/img/fondoazul.avif");
+color: wheat;
+max-width: 100%;
+}
+
+.habilidades-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  margin-top: 20px;
+
+}
+
+.habilidad {
+  background-color: #f3f3f3;
+  border-radius: 15px;
+  padding: 20px;
+  text-align: center;
+  width: 150px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+}
+
+.habilidad:hover {
+  transform: scale(1.05);
+}
+
+.habilidad img {
+  width: 60px;
+  height: 60px;
+  margin-bottom: 10px;
+}
+
+.habilidad p {
+  margin: 0;
+  font-weight: bold;
+  color: #333;
+}

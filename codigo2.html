@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mi Portafolio</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header>
+    <img src="imagenfoto.JPG" width="200px" height="200px">
+    <h1>Hola, soy Guiovanni Roberto</h1>
+    <p><strong>Desarrollador Web FrontEnd</strong></p>
+    <nav>
+      <a href="index.html">Inicio</a>
+      <a href="#proyecto3">Proyecto</a>
+      <a href="#habilidades">Habilidades</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+  </header>
+
+  <section id="sobre-mi">
+    <h2>Proyecto Java piedra papel y tijeras</h2>
+    <p>Este es un proyecto basado en el juego piegra papel y tijeras
+        en este caso esta realizado con Java y el IDE apache netbeans.
+        por lo cual se imprime en consola.
+        <img src="img/piedrapapelytijeras.JPG" width="600px" height="300px">
+    </p>
+  </section>
+
+  
+
+ <section id="habilidades">
+  <h2 style="text-align: center;">Habilidades</h2>
+  <div class="habilidades-container">
+    <div class="habilidad">
+      <img src="img/html5.png" alt="HTML5">
+      <p>HTML</p>
+    </div>
+    <div class="habilidad">
+      <img src="img/css3.png" alt="CSS3">
+      <p>CSS</p>
+    </div>
+    <div class="habilidad">
+      <img src="img/js.png" alt="JavaScript">
+      <p>JavaScript</p>
+    </div>
+    <div class="habilidad">
+      <img src="img/php.png" alt="PHP">
+      <p>PHP</p>
+    </div>
+  </div>
+</section>
+
+
+  <section id="contacto">
+    <h2>Contacto</h2>
+    <form id="formulario-contacto">
+      <input type="text" placeholder="Tu nombre" required />
+      <input type="email" placeholder="Tu email" required />
+      <textarea placeholder="Tu mensaje" required></textarea>
+      <button type="submit">Enviar</button>
+    </form>
+    <p id="mensaje-exito" style="display:none;">¡Mensaje enviado!</p>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 - Guiovanni Roberto Sanchez C.</p>
+  </footer>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,1337 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MoroHost — Hosting Potente y Simple</title>
+  <meta name="description" content="MoroHost por Xnapps Corporation — Hosting de alto rendimiento inspirado en MoroSurvival." />
+  <link href="https://api.fontshare.com/v2/css?f[]=classdisplay@400,500,700&display=swap" rel="stylesheet">
+  <link href="https://unpkg.com/lucide-static/font/lucide.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* ====== Reset & Base ====== */
+    * { box-sizing: border-box; }
+    html,body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: 'ClassDisplay', sans-serif;
+      color: #e8ecf1;
+      background: #0a0b0f;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    :root{
+      --c-bg: #0a0b0f;         /* negro profundo */
+      --c-card: #0f1118;       /* negro azulado */
+      --c-soft: #0c0f17;       /* sutil */
+      --c-text: #e8ecf1;
+      --c-muted: #b7c0cc;
+      --radius: 18px;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      /* Difuminado multicolor (verde, azul, morado) */
+      --grad: radial-gradient(1200px 600px at 10% -20%, rgba(56,255,166,.18), transparent 60%),
+              radial-gradient(900px 600px at 90% -10%, rgba(71,161,255,.18), transparent 60%),
+              radial-gradient(800px 800px at 50% 120%, rgba(194,98,255,.18), transparent 60%);
+      --accent-green: #3bf7a2;
+      --accent-blue:  #46a6ff;
+      --accent-purple:#ae68ff;
+      --accent-red:   #ff4d4d; /* para badges/alertas */
+    }
+
+    .overlay-bg::before{
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: var(--grad);
+      filter: blur(30px) saturate(140%);
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    .container { 
+      width: min(1200px, 92vw); 
+      margin: 0 auto; 
+      padding: 0 16px;
+    }
+
+    /* ====== Header Responsive ====== */
+    header {
+      position: sticky; 
+      top: 0; 
+      z-index: 2000;
+      backdrop-filter: blur(10px);
+      background: linear-gradient(180deg, rgba(10,11,15,.85), rgba(10,11,15,.55));
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+
+    header .nav {
+      display: flex; 
+      align-items: center; 
+      justify-content: space-between;
+      gap: 16px; 
+      padding: 18px 0;
+      transition: padding 0.4s ease;
+      flex-wrap: wrap;
+    }
+
+    /* Menu hamburguesa para móviles */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      gap: 4px;
+    }
+
+    .hamburger span {
+      width: 25px;
+      height: 3px;
+      background: var(--c-text);
+      border-radius: 2px;
+      transition: 0.3s;
+    }
+
+    header.scrolled {
+      position: fixed;
+      top: 10px; 
+      left: 50%;
+      transform: translateX(-50%);
+      width: calc(100% - 20px);
+      max-width: 1200px;
+      border: 0.25px solid rgba(255, 0, 0, 0.25);
+      border-radius: 50px;
+      background: linear-gradient(140deg, rgba(10,11,15,.9), rgba(10,11,15,.65));
+      box-shadow: 0 6px 25px rgba(0,0,0,.5), 0 0 2px rgba(255,0,0,.35);
+    }
+
+    header.scrolled .nav {
+      padding: 10px 30px;
+    }
+
+    .brand { 
+      display: flex; 
+      align-items: center; 
+      gap: 10px; 
+      font-weight: 700; 
+      letter-spacing: .3px;
+      flex-shrink: 0;
+    }
+
+    .logo {
+      width: 34px; 
+      height: 34px; 
+      border-radius: 10px; 
+      display: grid; 
+      place-items: center;
+      background: conic-gradient(from 30deg, var(--accent-green), var(--accent-blue), var(--accent-purple), var(--accent-green));
+      box-shadow: 0 0 0 3px rgba(255,255,255,.06) inset;
+    }
+
+    .logo svg { filter: drop-shadow(0 4px 10px rgba(0,0,0,.6)); }
+
+    .menu { 
+      display: flex; 
+      gap: 18px; 
+      flex-wrap: wrap;
+    }
+
+    .menu a { 
+      color: var(--c-muted); 
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .menu a:hover { color: var(--c-text); }
+
+    .cta {
+      display: flex; 
+      gap: 10px; 
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .btn { 
+      padding: 10px 16px; 
+      border-radius: 999px; 
+      border: 1px solid rgba(255,255,255,.08); 
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      white-space: nowrap;
+      min-height: 44px; /* Para mejor touch target en móviles */
+    }
+
+    .btn--ghost:hover { 
+      border-color: rgb(255 14 14 / 44%); 
+      background-color: rgba(255, 14, 14, 0.089);
+    }
+
+    .btn--solid {
+      background: linear-gradient(90deg, var(--accent-green), var(--accent-blue), var(--accent-purple));
+      color: #0a0b0f; 
+      border: none;
+      box-shadow: 0 8px 24px rgba(110, 78, 255, .35);
+    }
+
+    /* ====== Hero Responsive ====== */
+    .hero {
+      padding: 64px 0 32px; 
+      position: relative;
+    }
+
+    .hero .wrap { 
+      display: grid; 
+      grid-template-columns: 1fr; 
+      gap: 32px; 
+      align-items: center;
+    }
+
+    .title {
+      font-size: clamp(28px, 8vw, 56px);
+      line-height: 1.1; 
+      margin: 0 0 14px;
+      background: linear-gradient(90deg, #fff, #d8e7ff 40%, #f0e2ff 70%);
+      -webkit-background-clip: text; 
+      color: transparent;
+      letter-spacing: .3px;
+      text-align: center;
+    }
+
+    .subtitle { 
+      color: var(--c-muted); 
+      font-size: clamp(16px, 4vw, 18px); 
+      margin-bottom: 22px;
+      text-align: center;
+    }
+
+    .badges { 
+      display: flex; 
+      gap: 10px; 
+      flex-wrap: wrap; 
+      margin: 18px 0 0;
+      justify-content: center;
+    }
+
+    .badge { 
+      font-size: 12px; 
+      padding: 6px 10px; 
+      border-radius: 999px; 
+      border: 1px solid rgba(255,255,255,.12); 
+      background: rgba(255,255,255,.03);
+    }
+
+    .hero-card {
+      background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 18px; 
+      display: grid; 
+      gap: 16px;
+    }
+
+    .hero-card .img {
+      height: clamp(200px, 40vw, 260px); 
+      border-radius: calc(var(--radius) - 6px);
+      background:
+        linear-gradient(120deg, rgba(59,247,162,.35), transparent 40%),
+        linear-gradient(300deg, rgba(70,166,255,.35), transparent 40%),
+        linear-gradient(20deg, rgba(174,104,255,.35), transparent 50%),
+        url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="%23222"/><stop offset="1" stop-color="%23111"/></linearGradient></defs><rect width="800" height="450" fill="url(%23g)"/><g fill="none" stroke="%23555" opacity=".35"><path d="M0,360 C160,320 200,380 360,340 S600,300 800,320"/><path d="M0,260 C160,220 200,280 360,240 S600,200 800,220"/><path d="M0,160 C160,120 200,180 360,140 S600,100 800,120"/></g></svg>');
+      background-size: cover; 
+      background-position: center; 
+      border: 1px solid rgba(255,255,255,.06);
+    }
+
+    /* ====== Sections Responsive ====== */
+    section { padding: 48px 0; }
+    
+    .sec-title { 
+      font-size: clamp(24px, 6vw, 28px); 
+      margin: 0 0 22px; 
+      letter-spacing: .2px;
+      text-align: center;
+    }
+
+    .grid {
+      display: grid; 
+      gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
+
+    .col-4, .col-6 { 
+      grid-column: span 1;
+    }
+
+    .card {
+      background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 22px; 
+      display: grid; 
+      gap: 14px; 
+      position: relative; 
+      overflow: hidden;
+    }
+
+    .card::after{
+      content:""; 
+      position: absolute; 
+      inset: -1px; 
+      border-radius: inherit; 
+      pointer-events: none;
+      background: radial-gradient(300px 120px at 20% 0, rgba(59,247,162,.18), transparent 70%),
+                  radial-gradient(300px 120px at 80% 0, rgba(70,166,255,.18), transparent 70%),
+                  radial-gradient(400px 140px at 50% 120%, rgba(174,104,255,.18), transparent 70%);
+      opacity: .7; 
+      mix-blend-mode: screen;
+    }
+
+    .card h3 { 
+      margin: 0; 
+      font-size: clamp(18px, 4vw, 20px);
+    }
+
+    .kpis { 
+      display: flex; 
+      gap: 16px; 
+      flex-wrap: wrap;
+    }
+
+    .kpi { 
+      display: flex; 
+      gap: 8px; 
+      align-items: center; 
+      padding: 8px 10px; 
+      border: 1px solid rgba(255,255,255,.08); 
+      border-radius: 10px; 
+      background: rgba(255,255,255,.03);
+      font-size: 14px;
+    }
+
+    .price { 
+      font-size: clamp(20px, 5vw, 22px); 
+      font-weight: 800;
+    }
+
+    .from { 
+      color: var(--c-muted); 
+      font-size: 13px;
+    }
+
+    .btn-line { 
+      display: flex; 
+      gap: 10px; 
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .tick { 
+      color: var(--accent-green); 
+      font-weight: 900;
+    }
+
+    /* ====== Service Cards Responsive ====== */
+    .service-card {
+      background: #0f1118;
+      border-radius: 18px;
+      box-shadow: 0 8px 28px rgba(0,0,0,.4);
+      overflow: hidden;
+      width: 100%;
+      max-width: none;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .service-card-header {
+      position: relative;
+    }
+
+    .service-card-header img {
+      display: block;
+      width: 100%;
+      height: clamp(140px, 30vw, 160px);
+      object-fit: cover;
+    
+    }
+
+    .service-card-tags {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      right: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .service-card-tag {
+      font-size: clamp(10px, 2.5vw, 12px);
+      font-weight: 700;
+      padding: 4px 8px;
+      border-radius: 999px;
+      color: white;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .service-card-tag.premium { 
+      background: linear-gradient(135deg, #e2081a, #000000);
+    }
+
+    .service-card-tag.online, 
+    .service-card-tag.online2 { 
+      background-color: #0c2017a4;
+      color: #05c46b;
+      border: 2px solid #05c46b;
+      width: 100px;
+    }
+
+    .service-card-tag.optimizado{
+      background: linear-gradient(90deg,#1f011f,#6e0588);
+    }
+
+    .service-card-title {
+      position: absolute;
+      bottom: 0;     
+      left: 0;
+      width: 100%;
+      text-align: center;
+      color: #fff;
+      font-size: clamp(16px, 4vw, 20px);
+      font-weight: bold;
+      background: rgba(0, 0, 0, 0.7);
+      margin: 0;
+      line-height: 1;  
+      padding: 8px 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .service-card-body { 
+      padding: 20px; 
+      flex: 1; 
+      display: flex; 
+      background-color: #000000;
+      flex-direction: column;
+    }
+
+    .service-card-body p {
+      color: var(--c-muted);
+      font-size: clamp(13px, 3vw, 14px);
+      margin-bottom: 14px;
+    }
+
+    .service-features {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 18px;
+    }
+
+    .service-features li {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 6px;
+      font-size: clamp(12px, 3vw, 14px);
+    }
+
+    .service-features li::before {
+      content: "✔";
+      color: var(--accent-green);
+      font-weight: bold;
+    }
+
+    .service-specs {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 18px;
+      gap: 4px;
+    }
+
+    .service-spec {
+      background: #0a0b0f;
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 12px;
+      padding: 8px;
+      text-align: center;
+      flex: 1;
+    }
+    .service-spec:hover{
+      border: 1px solid red;
+    }
+
+    .service-spec h4 {
+      font-size: clamp(10px, 2.5vw, 12px);
+      margin: 0;
+      color: var(--c-muted);
+    }
+
+    .service-spec span {
+      display: block;
+      margin-top: 4px;
+      font-weight: 700;
+      color: var(--accent-red);
+      font-size: clamp(11px, 3vw, 13px);
+    }
+
+    .service-price {
+      font-size: clamp(14px, 4vw, 16px);
+      font-weight: 700;
+      margin-top: auto;
+    }
+
+    .service-price span {
+      color: var(--accent-red);
+      font-size: clamp(18px, 5vw, 22px);
+    }
+
+    .btn--servicios{
+      border: 2px solid rgb(255 14 14 / 44%);
+      display: flex;
+      align-items: center;
+      text-align: center;
+      justify-content: center;
+      padding: 12px;
+      min-height: 44px;
+    }
+
+   .btn--proximamente {
+  border: 2px solid rgb(255 14 14 / 44%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  min-height: 44px;
+  cursor: not-allowed;          /* 👉 cursor de deshabilitado */
+  opacity: 0.6;                 /* 👉 se ve apagado */
+  background:  #ff0e0e;      /* o el color que prefieras */
+  color: white;               /* texto rojo */
+  font-weight: bold;
+}
+
+.btn--proximamente:disabled {
+  pointer-events: none;         /* 👉 evita clics */
+}
+    /* Iconos responsive */
+    .icono1, .iconopremium, .iconoonline, .iconominecraft, .iconovps {
+      width: clamp(12px, 4vw, 20px);
+      height: clamp(12px, 4vw, 20px);
+    }
+    .iconominecraft{
+      width: clamp(12px, 4vw, 29px);
+    }
+
+    /* ====== Comparativa Responsive ====== */
+    .compare {
+      display: grid; 
+      gap: 20px; 
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+
+    .compare .card{ 
+      text-align: center;
+    }
+
+    .bar { 
+      height: 10px; 
+      border-radius: 999px; 
+      background: rgba(255,255,255,.08); 
+      overflow: hidden;
+    }
+
+    .bar > span { 
+      display: block; 
+      height: 100%; 
+      background: linear-gradient(90deg, var(--accent-green), var(--accent-blue), var(--accent-purple));
+    }
+
+    /* ====== Footer Responsive ====== */
+    footer { 
+      border-top: 1px solid rgba(255,255,255,.06); 
+      padding: 30px 0 50px; 
+      color: var(--c-muted);
+    }
+
+    .foot { 
+      display: flex; 
+      gap: 20px; 
+      justify-content: space-between; 
+      align-items: center; 
+      flex-wrap: wrap;
+      text-align: center;
+    }
+
+    .foot .brand b { 
+      color: var(--c-text);
+    }
+
+    .small { 
+      font-size: clamp(11px, 3vw, 12px); 
+      color: #90a0b3;
+    }
+
+    .chip {
+      display: inline-flex; 
+      align-items: center; 
+      gap: 8px; 
+      padding: 6px 10px; 
+      border-radius: 999px;
+      background: rgba(255,255,255,.04); 
+      border: 1px solid rgba(255,255,255,.08); 
+      font-size: clamp(10px, 2.5vw, 12px);
+    }
+
+    .dot { 
+      width: 8px; 
+      height: 8px; 
+      border-radius: 999px; 
+      background: var(--accent-green); 
+      box-shadow: 0 0 0 4px rgba(59,247,162,.2);
+    }
+
+    .hot { 
+      background: linear-gradient(90deg, rgba(59,247,162,.2), rgba(70,166,255,.2), rgba(174,104,255,.2)); 
+      border: none;
+    }
+
+    /* ====== Media Queries Específicas ====== */
+    
+    /* Tablets */
+    @media (min-width: 768px) and (max-width: 1024px) {
+      .hero .wrap { 
+        grid-template-columns: 1fr 0.8fr; 
+        gap: 24px;
+      }
+      
+      .title {
+        text-align: left;
+      }
+      
+      .subtitle {
+        text-align: left;
+      }
+      
+      .badges {
+        justify-content: flex-start;
+      }
+      
+      .btn-line {
+        justify-content: flex-start;
+      }
+    }
+
+    /* Desktop */
+    @media (min-width: 1025px) {
+      .hero .wrap { 
+        grid-template-columns: 1.1fr 0.9fr; 
+        gap: 32px;
+      }
+      
+      .title {
+        text-align: left;
+      }
+      
+      .subtitle {
+        text-align: left;
+      }
+      
+      .badges {
+        justify-content: flex-start;
+      }
+      
+      .btn-line {
+        justify-content: flex-start;
+      }
+      
+      .sec-title {
+        text-align: left;
+      }
+      
+      .grid {
+        grid-template-columns: repeat(12, 1fr);
+      }
+      
+      .col-4 { grid-column: span 4; }
+      .col-6 { grid-column: span 6; }
+    }
+
+    /* Móviles pequeños */
+    @media (max-width: 480px) {
+      .container {
+        padding: 0 12px;
+      }
+      
+      header.scrolled {
+        top: 5px;
+        left: 5px;
+        width: calc(100% - 10px);
+        transform: none;
+      }
+      
+      .menu {
+        display: none;
+      }
+      
+      .hamburger {
+        display: flex;
+      }
+      
+      .cta {
+        flex-direction: column;
+        width: 100%;
+      }
+      
+      .btn {
+        width: 100%;
+        padding: 12px;
+      }
+      
+      .hero {
+        padding: 32px 0 24px;
+      }
+      
+      .service-card-tags {
+        position: static;
+        margin-bottom: 12px;
+        justify-content: center;
+      }
+      
+      .service-card-tag {
+        flex: 1;
+        text-align: center;
+        min-width: 80px;
+      }
+      
+      .service-specs {
+        flex-direction: column;
+        gap: 8px;
+      }
+      
+      .service-spec {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        text-align: left;
+        padding: 12px;
+      }
+      
+      
+      .foot {
+        flex-direction: column;
+        text-align: center;
+      }
+      
+    }
+
+    /* Orientación landscape en móviles */
+    @media (max-height: 600px) and (orientation: landscape) {
+      .hero {
+        padding: 24px 0 16px;
+      }
+      
+      .hero-card .img {
+        height: 150px;
+      }
+      
+      section {
+        padding: 32px 0;
+      }
+      .iconominecraft{
+      width: 29px;
+    }
+    }
+
+    /* Mejoras para touch devices */
+    @media (hover: none) {
+      .btn {
+        min-height: 48px;
+      }
+      
+      .menu a {
+        padding: 8px 4px;
+      }
+    }
+
+    /*ultima prueba de animaciones de los planes*/
+    /* Estilos base del card */
+.service-card {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+  transition: transform 0.3s ease;
+  background: #1a1a1a;
+  color: white;
+}
+
+/* Imagen */
+.service-card-header {
+  position: relative;
+  overflow: hidden;
+}
+
+.service-card-header img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+/* Overlay rojo */
+.service-card-header::after {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0, 183, 255, 0.055);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+/* Hover: zoom + overlay */
+.service-card:hover img {
+  transform: scale(1.1);
+}
+.service-card:hover .service-card-body {
+  background: rgba(1, 11, 31, 0.432); /* rojizo transparente */
+}
+.service-card-body:hover{
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(255, 0, 0, 0.35);
+
+}
+
+
+.service-card:hover .service-card-header::after {
+  opacity: 1;
+}
+
+/* Extra: animar el card completo */
+.service-card:hover {
+  transform: translateY(-8px);
+}
+/*poniendo al boton de servicios un hover animacion*/
+.btn--servicios:hover{
+  background-color: #29020296;
+}
+
+/*adaptando service-tags*/
+.service-card {
+  position: relative; /* necesario para ubicar los tags dentro */
+  overflow: hidden;
+}
+
+.service-card-tags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* 📱 Cuando el ancho de pantalla es menor a 768px (tamaño celular) */
+@media (max-width: 768px) {
+  .service-card-tags {
+    position: absolute;
+    top: 10px;   /* margen desde arriba */
+    left: 10px;  /* margen desde la izquierda */
+    z-index: 10; /* para que quede encima de la imagen */
+     /* opcional: fondo semi-transparente */
+    padding: 5px 8px;
+    border-radius: 8px;
+  }
+  .iconominecraft{
+      width: 29px;
+    }
+  .service-card-tags span {
+    font-size: 12px; /* achicamos los textos en móvil */
+  }
+}
+
+.ribbon {
+  position: absolute;
+  top: 20px;
+  right: -40px;
+  width: 150px;
+  text-align: center;
+  background: linear-gradient(135deg, #ff4757, #000000); /* 🔥 rojo a negro */
+  color: white;
+  font-weight: bold;
+  transform: rotate(45deg);
+  padding: 5px 0;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+  font-size: 13px;
+  z-index: 999;
+}
+
+
+  </style>
+</head>
+<body class="overlay-bg">
+  <header>
+    <div class="container nav">
+      <a class="brand" href="#inicio" aria-label="MoroHost">
+        <span class="logo" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="#0a0b0f" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l3 5-3 5-3-5 3-5zm0 10l3 5-3 5-3-5 3-5z"/></svg>
+        </span>
+        <span>MoroHost</span>
+      </a>
+      
+      <div class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      
+      <nav class="menu">
+        <a href="#planes">Planes</a>
+        <a href="#games">Game Servers</a>
+        <a href="#dedicados">Dedicados</a>
+        <a href="#comparativa">Comparativa</a>
+        <a href="#soporte">Soporte</a>
+      </nav>
+      
+      <div class="cta">
+        <a class="btn btn--ghost" href="#login">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icono1" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path>
+            <polyline points="10 17 15 12 10 7"></polyline>
+            <line x1="15" x2="3" y1="12" y2="12"></line>
+          </svg>
+          Iniciar sesión
+        </a>
+        <a class="btn btn--solid" href="#registro">Registrarse</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- ===== Hero ===== -->
+    <section id="inicio" class="hero">
+      <div class="container wrap">
+        <div>
+          <h1 class="title">Hosting Potente y Simple para <span style="white-space:nowrap">Minecraft & más</span></h1>
+          <p class="subtitle">MoroHost es la plataforma de alojamiento de <b>Xnapps Corporation</b>, inspirada en la experiencia de <b>MoroSurvival</b>. Rendimiento estable, protección integral y despliegue instantáneo.</p>
+          <div class="btn-line">
+            <a class="btn btn--solid" href="#planes">Ver planes</a>
+            <a class="btn btn--ghost" href="#comparativa">¿Por qué elegirnos?</a>
+          </div>
+          <div class="badges">
+            <span class="chip hot"><span class="dot"></span>Disponible ahora</span>
+            <span class="chip">Anti‑DDoS avanzado</span>
+            <span class="chip">Panel amigable</span>
+            <span class="chip">Soporte 24/7</span>
+          </div>
+        </div>
+        <div class="hero-card">
+          <div class="img" aria-hidden="true"></div>
+          <div class="kpis">
+            <div class="kpi"><strong>CPU</strong> 9950X</div>
+            <div class="kpi"><strong>RAM</strong> DDR5</div>
+            <div class="kpi"><strong>SSD</strong> NVMe</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Planes de producto ===== -->
+    <section id="planes">
+      <div class="container">
+        <h2 class="sec-title">Nuestros Servicios</h2>
+        <div class="grid">
+          
+          <!-- Minecraft -->
+          <article class="service-card col-4">
+            <div class="service-card-header">
+              <img src="https://panamahitek.com/wp-content/uploads/2013/07/java-25-anos.jpg" alt="banner">
+              <div class="service-card-tags">
+                <span class="service-card-tag premium">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="iconopremium" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path></svg>
+                  PREMIUM
+                </span>
+                <span class="service-card-tag online">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="iconoonline" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"></path></svg>
+                  Disponible
+                </span>
+              </div>
+
+              <h2 class="service-card-title">
+                <svg xmlns="http://www.w3.org/2000/svg" class="iconominecraft" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="6" x2="10" y1="11" y2="11"></line>
+                  <line x1="8" x2="8" y1="9" y2="13"></line>
+                  <line x1="15" x2="15.01" y1="12" y2="12"></line>
+                  <line x1="18" x2="18.01" y1="10" y2="10"></line>
+                  <path d="M17.32 5H6.68a4 4 0 0 0-3.978 3.59c-.006.052-.01.101-.017.152C2.604 9.416 2 14.456 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.414-1.414A2 2 0 0 1 9.828 16h4.344a2 2 0 0 1 1.414.586L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.545-.604-6.584-.685-7.258-.007-.05-.011-.1-.017-.151A4 4 0 0 0 17.32 5z"></path>
+                </svg>
+                Minecraft
+              </h2>
+            </div>
+
+            <div class="service-card-body">
+              <p>Servidores premium de Java y Bedrock con configuración instantánea y soporte para plugins</p>
+              <ul class="service-features">
+                <li>Activación instantánea</li>
+                <li>Soporte para plugins y mods</li>
+                <li>Protección DDoS avanzada</li>
+              </ul>
+              <div class="service-specs">
+                <div class="service-spec">
+                  <h4>CPU</h4>
+                  <span>5600X</span>
+                </div>
+                <div class="service-spec">
+                  <h4>RAM</h4>
+                  <span>DDR5</span>
+                </div>
+                <div class="service-spec">
+                  <h4>SSD</h4>
+                  <span>NVMe</span>
+                </div>
+              </div>
+              <div class="service-price">Desde <span>$1.20/GB</span></div>
+              <br>
+              <a class="btn btn--servicios" href="#vps">Saber más →</a>
+            </div>
+          </article>
+
+          <!-- VPS -->
+          <article class="service-card col-4">
+             <div class="ribbon">Próximamente</div>
+            <div class="service-card-header">
+              <img src="https://panamahitek.com/wp-content/uploads/2013/07/java-25-anos.jpg" alt="banner">
+              <div class="service-card-tags">
+                <span class="service-card-tag premium">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="iconopremium" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path></svg>
+                  PREMIUM
+                </span>
+                <span class="service-card-tag online">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="iconoonline" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"></path></svg>
+                  Disponible
+                </span>
+              </div>
+
+              <h2 class="service-card-title">
+                <svg xmlns="http://www.w3.org/2000/svg" class="iconovps" width="24" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"></path></svg>
+                VPS
+              </h2>
+            </div>
+
+            <div class="service-card-body">
+              <p>Servidores virtuales con acceso completo y recursos dedicados</p>
+              <ul class="service-features">
+                <li>Acceso root completo</li>
+                <li>Escalabilidad garantizada</li>
+                <li>Múltiples ubicaciones</li>
+              </ul>
+              <div class="service-specs">
+                <div class="service-spec">
+                  <h4>CPU</h4>
+                  <span>5600X</span>
+                </div>
+                <div class="service-spec">
+                  <h4>RAM</h4>
+                  <span>DDR5</span>
+                </div>
+                <div class="service-spec">
+                  <h4>SSD</h4>
+                  <span>NVMe</span>
+                </div>
+              </div>
+              <div class="service-price">Desde <span>$9.99</span></div>
+              <br>
+              <a class="btn btn--proximamente" href="#vps">Proximamente</a>
+            </div>
+          </article>
+
+          <!-- FiveM -->
+          <article class="service-card col-4">
+            <div class="ribbon">Próximamente</div>
+            <div class="service-card-header">
+              <img src="https://panamahitek.com/wp-content/uploads/2013/07/java-25-anos.jpg" alt="banner">
+              <div class="service-card-tags">
+                <span class="service-card-tag optimizado">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="iconopremium" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path></svg>
+                  OPTIMIZADO
+                </span>
+                <span class="service-card-tag online">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="iconoonline" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"></path></svg>
+                  Disponible
+                </span>
+              </div>
+
+              <h2 class="service-card-title">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"></path></svg>
+                FiveM
+              </h2>
+            </div>
+
+            <div class="service-card-body">
+              <p>Servidores optimizados para GTA V RP con soporte completo</p>
+              <ul class="service-features">
+                <li>Windows Server optimizado</li>
+                <li>AntiDDoS NeoProtect</li>
+                <li>Soporte para mods y scripts</li>
+              </ul>
+              <div class="service-specs">
+                <div class="service-spec">
+                  <h4>CPU</h4>
+                  <span>5600X</span>
+                </div>
+                <div class="service-spec">
+                  <h4>RAM</h4>
+                  <span>DDR5</span>
+                </div>
+                <div class="service-spec">
+                  <h4>SSD</h4>
+                  <span>NVMe</span>
+                </div>
+              </div>
+              <div class="service-price">Desde <span>$9.99</span></div>
+              <br>
+              <a class="btn btn--proximamente" href="#vps">Proximamente</a>
+            </div>
+          </article>
+
+          <!-- Game Servers -->
+          <article class="service-card col-4">
+            <div class="ribbon">Próximamente</div>
+            <div class="service-card-header">
+              
+              <img src="https://panamahitek.com/wp-content/uploads/2013/07/java-25-anos.jpg" alt="banner">
+              <div class="service-card-tags">
+                <span class="service-card-tag online2">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="iconoonline" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"></path></svg>
+                  Gaming
+                </span>
+              </div>
+
+              <h2 class="service-card-title">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"></path></svg>
+                Gaming
+              </h2>
+            </div>
+
+            <div class="service-card-body">
+              <p>Servidores para múltiples juegos con optimización específica</p>
+              <ul class="service-features">
+                <li>Optimización para gaming</li>
+                <li>Baja latencia</li>
+                <li>Multi‑juego</li>
+              </ul>
+              <div class="service-specs">
+                <div class="service-spec">
+                  <h4>CPU</h4>
+                  <span>5600X</span>
+                </div>
+                <div class="service-spec">
+                  <h4>RAM</h4>
+                  <span>DDR5</span>
+                </div>
+                <div class="service-spec">
+                  <h4>SSD</h4>
+                  <span>NVMe</span>
+                </div>
+              </div>
+              <div class="service-price">Desde <span>$1.50/GB</span></div>
+              <br>
+              <a class="btn btn--proximamente" href="#vps">Proximamente</a>
+            </div>
+          </article>
+
+          <!-- Dedicados -->
+          <article class="service-card col-4">
+            <div class="ribbon">Próximamente</div>
+            <div class="service-card-header">
+              <img src="https://panamahitek.com/wp-content/uploads/2013/07/java-25-anos.jpg" alt="banner">
+              <div class="service-card-tags">
+                <span class="service-card-tag online2">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="iconoonline" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"></path></svg>
+                  Enterprise
+                </span>
+              </div>
+
+              <h2 class="service-card-title">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"></path></svg>
+                Dedicados
+              </h2>
+            </div>
+
+            <div class="service-card-body">
+              <p>Hardware exclusivo para máximo rendimiento y control total</p>
+              <ul class="service-features">
+                <li>Hardware exclusivo</li>
+                <li>Configuración personalizada</li>
+                <li>Máximo rendimiento</li>
+              </ul>
+              <div class="service-specs">
+                <div class="service-spec">
+                  <h4>CPU</h4>
+                  <span>5600X</span>
+                </div>
+                <div class="service-spec">
+                  <h4>RAM</h4>
+                  <span>DDR5</span>
+                </div>
+                <div class="service-spec">
+                  <h4>SSD</h4>
+                  <span>NVMe</span>
+                </div>
+              </div>
+              <div class="service-price">Desde <span>$42.90</span></div>
+              <br>
+              <a class="btn btn--proximamente" href="#dedicados-more">Proximamente</a>
+            </div>
+          </article>
+
+          <!-- Otros servicios -->
+          <article class="service-card col-4">
+            <div class="ribbon">Próximamente</div>
+            <div class="service-card-header">
+              <img src="https://panamahitek.com/wp-content/uploads/2013/07/java-25-anos.jpg" alt="banner">
+              <div class="service-card-tags">
+                <span class="service-card-tag online2">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="iconoonline" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"></path></svg>
+                  Gaming
+                </span>
+              </div>
+
+              <h2 class="service-card-title">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"></path></svg>
+                Plus
+              </h2>
+            </div>
+
+            <div class="service-card-body">
+              <p>Soluciones personalizadas para necesidades específicas</p>
+              <ul class="service-features">
+                <li>Soluciones personalizadas</li>
+                <li>Asesoramiento técnico</li>
+                <li>Planes flexibles</li>
+              </ul>
+              <div class="service-specs">
+                <div class="service-spec">
+                  <h4>CPU</h4>
+                  <span>5600X</span>
+                </div>
+                <div class="service-spec">
+                  <h4>RAM</h4>
+                  <span>DDR5</span>
+                </div>
+                <div class="service-spec">
+                  <h4>SSD</h4>
+                  <span>NVMe</span>
+                </div>
+              </div>
+              <div class="service-from">Desde</div>
+              <div class="service-price">A consultar</div>
+              <br>
+              <a class="btn btn--proximamente" href="#vps">Proximamente</a>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Comparativa ===== -->
+    <section id="comparativa">
+      <div class="container">
+        <h2 class="sec-title">¿Por qué elegir MoroHost?</h2>
+        <p class="subtitle">Compara nuestros servicios con otros proveedores y descubre por qué somos la mejor opción para tu servidor.</p>
+        <div class="compare">
+          <article class="card">
+            <h3>MoroHost <span class="badge" style="margin-left:6px; font-size:12px; padding:4px 8px; background:rgba(59,247,162,.18); border-radius:999px;">Nuestra elección</span></h3>
+            <p class="price">$1.20/GB</p>
+            <div class="bar" aria-label="Rendimiento 100%"><span style="width:100%"></span></div>
+          </article>
+          <article class="card">
+            <h3>Lilypad</h3>
+            <p class="price">$2.75/GB</p>
+            <div class="bar" aria-label="Rendimiento 85%"><span style="width:85%"></span></div>
+          </article>
+          <article class="card">
+            <h3>Apex Hosting</h3>
+            <p class="price">$5/GB</p>
+            <div class="bar" aria-label="Rendimiento 65%"><span style="width:65%"></span></div>
+          </article>
+          <article class="card">
+            <h3>Bisect Hosting</h3>
+            <p class="price">$5/GB</p>
+            <div class="bar" aria-label="Rendimiento 45%"><span style="width:45%"></span></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Soporte ===== -->
+    <section id="soporte">
+      <div class="container">
+        <h2 class="sec-title">Soporte que sí responde</h2>
+        <div class="grid">
+          <div class="card col-6">
+            <h3>Panel y conocimientos</h3>
+            <p>Documentación clara, guías paso a paso y un panel de control sencillo para que gestiones todo sin complicaciones.</p>
+            <div class="kpis">
+              <div class="kpi">📘 Guías</div>
+              <div class="kpi">🛠️ Panel</div>
+              <div class="kpi">🧩 Addons</div>
+            </div>
+          </div>
+          <div class="card col-6">
+            <h3>Atención 24/7</h3>
+            <p>Estamos disponibles por tickets y correo. El equipo de MoroHost está listo para ayudarte cuando lo necesites.</p>
+            <div class="kpis">
+              <div class="kpi">⏱️ Rápido</div>
+              <div class="kpi">💬 Humano</div>
+              <div class="kpi">🛡️ Confiable</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container foot">
+      <div class="brand">
+        <span class="logo"><svg width="18" height="18" viewBox="0 0 24 24" fill="#0a0b0f" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l3 5-3 5-3-5 3-5zm0 10l3 5-3 5-3-5 3-5z"/></svg></span>
+        <span><b>MoroHost</b> — Inspirado en MoroSurvival</span>
+      </div>
+      <div class="small">© <span id="year">2025</span> Xnapps Corporation. Todos los derechos reservados.</div>
+    </div>
+  </footer>
+
+  <script>
+    // Año dinámico
+    document.getElementById('year').textContent = new Date().getFullYear();
+    
+    // Header scrolled effect
+    const header = document.querySelector("header");
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 10) {
+        header.classList.add("scrolled");
+      } else {
+        header.classList.remove("scrolled");
+      }
+    });
+    
+    // Menu hamburguesa (funcionalidad básica)
+    const hamburger = document.querySelector('.hamburger');
+    const menu = document.querySelector('.menu');
+    
+    hamburger.addEventListener('click', () => {
+      menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
+    });
+  </script>
+</body>
+</html>

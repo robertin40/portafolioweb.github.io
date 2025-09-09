@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mi Portafolio</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header>
+    <img src="imagenfoto.JPG" width="200px" height="200px">
+    <h1>Hola, soy Guiovanni Roberto</h1>
+    <p><strong>Desarrollador Web FrontEnd</strong></p>
+    <nav>
+      <a href="#sobre-mi">Sobre mí</a>
+      <a href="#proyectos">Proyectos</a>
+      <a href="#habilidades">Habilidades</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+  </header>
+
+  <section id="sobre-mi">
+    <h2>Sobre mí</h2>
+    <p>Hola, soy Guiovanni Roberto, desarrollador entusiasta con pasión por la tecnología y la creación de soluciones digitales.
+Me especializo en desarrollar aplicaciones y servicios web con Java, especialmente APIs que pueden integrarse en sitios web o aplicaciones móviles, ofreciendo funcionalidades sólidas y escalables.
+
+Además de la programación, disfruto de una vida equilibrada. Me gusta hacer gimnasia, tocar la guitarra de vez en cuando y cocinar platos sencillos pero sabrosos. En mi adolescencia practiqué tenis, una experiencia que me enseñó disciplina y constancia, cualidades que aplico también en mis proyectos.
+
+Siempre estoy en búsqueda de nuevos desafíos para seguir aprendiendo y creciendo como desarrollador.</p>
+  </section>
+
+  <section id="proyectos">
+    <h2 style="text-align: center;">Proyectos</h2>
+    <section id="proyectos2">
+    <div class="proyecto">
+      <h3>Juego de Papel Y tijera con Java</h3>
+      <p>Este es un pequeño juego impreso en consola <br>el juego es de piedra papel o tijera.</p>
+      <img src="img/piedrapapeltijera.avif" width="100px" height="100px"/><br>
+      <a href="codigo2.html" target="_blank">Ver proyecto</a>
+    </div>
+    <div class="proyecto">
+      <h3>Pagina web de comercio de productos LANDING PAGE + JSEMAIL</h3>
+      <p>Este es una pagina web creada con visual studio code html y css y un poco de JavaScript
+        , es una pagina que al darle click al boton comprar producto se selecciona y abre un formulario donde tiene que 
+        rellenar datos pero lo más importante es el correo lo envia a donde ingresar el corrreo la factura o boleta.
+        entonces esto esta hecho con JSEMAIL y HTML5 , CSS Y JS.
+      </p>
+      <img src="img/html5.png" width="200px" height="200px">
+      <br>
+      <a href="proyecto3.html" target="_blank">Ver proyecto</a>
+    </div>
+    <div class="proyecto">
+      <h3>Proyecto Morohost</h3>
+      <p>Es un diseño web de morohost para vender servicios de servidores de minecraft.</p>
+      <a href="paginawebmorohost.html" target="_blank">Ver proyecto</a>
+    </div>
+    </section>
+    <!-- Puedes duplicar más proyectos -->
+  </section>
+
+ <section id="habilidades">
+  <h2 style="text-align: center;">Habilidades</h2>
+  <div class="habilidades-container">
+    <div class="habilidad">
+      <img src="img/html5.png" alt="HTML5">
+      <p>HTML</p>
+    </div>
+    <div class="habilidad">
+      <img src="img/css3.png" alt="CSS3">
+      <p>CSS</p>
+    </div>
+    <div class="habilidad">
+      <img src="img/js.png" alt="JavaScript">
+      <p>JavaScript</p>
+    </div>
+    <div class="habilidad">
+      <img src="img/php.png" alt="PHP">
+      <p>PHP</p>
+    </div>
+  </div>
+</section>
+
+
+  <section id="contacto">
+    <h2>Contacto</h2>
+    <form id="formulario-contacto">
+      <input type="text" placeholder="Tu nombre" required />
+      <input type="email" placeholder="Tu email" required />
+      <textarea placeholder="Tu mensaje" required></textarea>
+      <button type="submit">Enviar</button>
+    </form>
+    <p id="mensaje-exito" style="display:none;">¡Mensaje enviado!</p>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 - Guiovanni Roberto Sanchez C.</p>
+  </footer>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

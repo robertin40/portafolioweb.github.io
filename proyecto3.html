@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Proyecto 3 — Landing Page + EmailJS</title>
+
+  <!-- Fuente profesional -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --color-primary: #2a5298;
+      --color-secondary: #1e3c72;
+      --color-bg: #f9f9f9;
+      --color-dark: #222;
+      --radius: 14px;
+      --transition: 0.3s ease;
+      --font-main: 'Poppins', sans-serif;
+    }
+
+    body {
+      font-family: var(--font-main);
+      margin: 0;
+      background: var(--color-bg);
+      color: #333;
+      line-height: 1.6;
+    }
+
+    header {
+      text-align: center;
+      padding: 60px 20px;
+      background: linear-gradient(135deg, var(--color-secondary), var(--color-primary));
+      color: white;
+    }
+    header img {
+      border-radius: 50%;
+      border: 5px solid white;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+      width: 160px;
+      height: 160px;
+      object-fit: cover;
+    }
+    header h1 {
+      margin-top: 15px;
+      font-size: 2.2rem;
+    }
+    header p {
+      font-size: 1.1rem;
+    }
+    nav {
+      margin-top: 20px;
+    }
+    nav a {
+      margin: 0 12px;
+      color: white;
+      font-weight: 600;
+      text-decoration: none;
+      position: relative;
+    }
+    nav a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -5px;
+      width: 0;
+      height: 2px;
+      background: #ffdd57;
+      transition: width var(--transition);
+    }
+    nav a:hover::after { width: 100%; }
+
+    section {
+      max-width: 1000px;
+      margin: 60px auto;
+      padding: 0 20px;
+    }
+
+    section h2 {
+      text-align: center;
+      margin-bottom: 25px;
+      color: var(--color-secondary);
+      font-size: 1.8rem;
+    }
+
+    /* Contenedor del proyecto */
+    .proyecto {
+      background: white;
+      padding: 25px;
+      border-radius: var(--radius);
+      box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+    }
+    .proyecto p {
+      font-size: 1rem;
+      margin-bottom: 20px;
+      text-align: justify;
+    }
+    .proyecto img {
+      display: block;
+      max-width: 100%;
+      border-radius: var(--radius);
+      margin: 20px auto;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+    }
+
+    /* Habilidades */
+    .habilidades-container {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+    .habilidad {
+      text-align: center;
+      background: white;
+      padding: 20px;
+      border-radius: var(--radius);
+      box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+      transition: transform var(--transition);
+    }
+    .habilidad:hover { transform: translateY(-6px); }
+    .habilidad img {
+      width: 70px;
+      margin-bottom: 10px;
+    }
+
+    /* Contacto */
+    form {
+      max-width: 600px;
+      margin: auto;
+      display: flex;
+      flex-direction: column;
+    }
+    form input, form textarea {
+      width: 100%;
+      padding: 14px;
+      margin: 10px 0;
+      border: 2px solid #ddd;
+      border-radius: var(--radius);
+      font-size: 1rem;
+      transition: border var(--transition);
+    }
+    form input:focus, form textarea:focus {
+      border-color: var(--color-primary);
+      outline: none;
+    }
+    form button {
+      background: var(--color-primary);
+      color: white;
+      border: none;
+      padding: 14px;
+      border-radius: var(--radius);
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background var(--transition), box-shadow var(--transition);
+    }
+    form button:hover {
+      background: var(--color-secondary);
+      box-shadow: 0 0 15px rgba(42,82,152,0.6);
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: var(--color-dark);
+      color: white;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="imagenfoto.JPG" alt="Foto de perfil">
+    <h1>Hola, soy Guiovanni Roberto</h1>
+    <p><strong>Desarrollador Web FrontEnd</strong></p>
+    <nav>
+      <a href="index.html">Inicio</a>
+      <a href="#proyecto3">Proyecto</a>
+      <a href="#habilidades">Habilidades</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+  </header>
+
+  <!-- Proyecto -->
+  <section id="proyecto3">
+    <h2>Landing Page de Comercio con EmailJS</h2>
+    <div class="proyecto">
+      <p>
+        Este es un proyecto creado con <strong>HTML5, CSS3 y JavaScript</strong>. 
+        Es una página de comercio donde al darle clic en “Comprar producto” se abre un formulario para rellenar datos, 
+        especialmente el correo electrónico, al cual se envía automáticamente la factura o boleta.  
+        El envío se realiza con <strong>EmailJS</strong>, permitiendo comunicación en tiempo real con el cliente.
+      </p>
+      <img src="img/productospaginaweb.JPG" alt="Vista de productos de la página web">
+      <p style="text-align:center">Captura mostrando la compra de un producto.</p>
+      <img src="img/comprarproducto.JPG" alt="Formulario de compra de producto">
+      <p style="text-align:center">Formulario de compra con envío de correo.</p>
+      <p> <a href="proteinapagina.html">VER PAGINA REAL(PROYECTO)</a></p>
+    </div>
+  </section>
+
+  <!-- Habilidades -->
+  <section id="habilidades">
+    <h2>Habilidades</h2>
+    <div class="habilidades-container">
+      <div class="habilidad">
+        <img src="img/html5.png" alt="HTML5">
+        <p>HTML</p>
+      </div>
+      <div class="habilidad">
+        <img src="img/css3.png" alt="CSS3">
+        <p>CSS</p>
+      </div>
+      <div class="habilidad">
+        <img src="img/js.png" alt="JavaScript">
+        <p>JavaScript</p>
+      </div>
+      <div class="habilidad">
+        <img src="img/php.png" alt="PHP">
+        <p>PHP</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contacto -->
+  <section id="contacto">
+    <h2>Contacto</h2>
+    <form id="formulario-contacto">
+      <input type="text" placeholder="Tu nombre" required />
+      <input type="email" placeholder="Tu email" required />
+      <textarea placeholder="Tu mensaje" required></textarea>
+      <button type="submit">Enviar</button>
+    </form>
+    <p id="mensaje-exito" style="display:none; text-align:center; margin-top:10px;">¡Mensaje enviado!</p>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 - Guiovanni Roberto Sanchez C.</p>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proteína Premium - Tu Fuente de Energía</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <style>
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        .form-container {
+            transition: all 0.3s ease;
+        }
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Hero Section -->
+    <header class="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-20">
+        <div class="container mx-auto px-6 text-center">
+            <h1 class="text-4xl md:text-6xl font-bold mb-6">PROTEÍNAS PREMIUM</h1>
+            <p class="text-xl md:text-2xl mb-8">Combustible de alta calidad para tus metas fitness</p>
+            <div class="flex justify-center">
+                <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/37bd389d-7790-4ef3-bb96-cfa65d0f9e87.png" alt="Persona musculosa sonriendo mientras sostiene un batido de proteína en un gimnasio moderno" class="rounded-lg shadow-xl">
+            </div>
+        </div>
+    </header>
+
+    <!-- Products Section -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center text-gray-800 mb-12">NUESTROS PRODUCTOS</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Product 1 -->
+                <div class="product-card bg-white rounded-xl shadow-md overflow-hidden transition-all duration-300 cursor-pointer" onclick="showOrderForm('Proteína Whey Isolada', 89.99)">
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/931a72d1-9301-45b6-ac3d-40582519ef70.png" alt="Bote de proteína whey isolada con sabor a vainilla, sobre fondo blanco" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-gray-800">Proteína Whey Isolada</h3>
+                        <p class="text-gray-600 mt-2">Absorción rápida, 90% de proteína por servicio</p>
+                        <div class="mt-4 flex justify-between items-center">
+                            <span class="text-2xl font-bold text-blue-600">$89.99</span>
+                            <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">Comprar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 2 -->
+                <div class="product-card bg-white rounded-xl shadow-md overflow-hidden transition-all duration-300 cursor-pointer" onclick="showOrderForm('Proteína Vegana', 79.99)">
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/b1b145bc-003e-4db5-857c-df1e4e0ca240.png" alt="Proteína vegana en polvo con ingredientes naturales como guisantes y arroz integral" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-gray-800">Proteína Vegana</h3>
+                        <p class="text-gray-600 mt-2">Fuente vegetal completa, sin lácteos</p>
+                        <div class="mt-4 flex justify-between items-center">
+                            <span class="text-2xl font-bold text-blue-600">$79.99</span>
+                            <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">Comprar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 3 -->
+                <div class="product-card bg-white rounded-xl shadow-md overflow-hidden transition-all duration-300 cursor-pointer" onclick="showOrderForm('Proteína Caseína', 94.99)">
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/0e920ef5-9e9e-4a85-8099-c35f1af44384.png" alt="Bote de proteína caseína con sabor a chocolate, mostrando el polvo cremoso" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-gray-800">Proteína Caseína</h3>
+                        <p class="text-gray-600 mt-2">Liberación prolongada, ideal para la noche</p>
+                        <div class="mt-4 flex justify-between items-center">
+                            <span class="text-2xl font-bold text-blue-600">$94.99</span>
+                            <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">Comprar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 4 -->
+                <div class="product-card bg-white rounded-xl shadow-md overflow-hidden transition-all duration-300 cursor-pointer" onclick="showOrderForm('Proteína de Huevo', 69.99)">
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/79feff72-3fa7-4094-8c78-dbadb6b1dc8e.png" alt="Proteína de huevo en polvo con huevos frescos al lado, sobre fondo de madera" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-gray-800">Proteína de Huevo</h3>
+                        <p class="text-gray-600 mt-2">Perfil completo de aminoácidos, sin lactosa</p>
+                        <div class="mt-4 flex justify-between items-center">
+                            <span class="text-2xl font-bold text-blue-600">$69.99</span>
+                            <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">Comprar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 5 -->
+                <div class="product-card bg-white rounded-xl shadow-md overflow-hidden transition-all duration-300 cursor-pointer" onclick="showOrderForm('Proteína de Carne', 99.99)">
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/b637f675-2937-463b-ab5e-c1b31140822d.png" alt="Proteína de carne en polvo con cortes de carne jugosa al lado" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-gray-800">Proteína de Carne</h3>
+                        <p class="text-gray-600 mt-2">Fuente animal premium, rica en creatina</p>
+                        <div class="mt-4 flex justify-between items-center">
+                            <span class="text-2xl font-bold text-blue-600">$99.99</span>
+                            <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">Comprar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 6 -->
+                <div class="product-card bg-white rounded-xl shadow-md overflow-hidden transition-all duration-300 cursor-pointer" onclick="showOrderForm('Proteína de Soja', 59.99)">
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/12e030bd-792e-485a-bc94-349b985209e1.png" alt="Proteína de soja en polvo con granos de soja y brotes al lado" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-gray-800">Proteína de Soja</h3>
+                        <p class="text-gray-600 mt-2">Opción económica, buena para vegetarianos</p>
+                        <div class="mt-4 flex justify-between items-center">
+                            <span class="text-2xl font-bold text-blue-600">$59.99</span>
+                            <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">Comprar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Order Form (Initially Hidden) -->
+    <section id="orderForm" class="form-container fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
+        <div class="bg-white rounded-xl p-8 max-w-md w-full mx-4">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6">Completa tu pedido</h2>
+            
+            <form id="orderFormContent" class="space-y-4">
+                 <div>
+                    <label for="address" class="block text-gray-700 mb-2">Nombre Completo:</label>
+                    <input type="text" id="name" name="name" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" required>
+                </div>
+                <div>
+                    <label class="block text-gray-700 mb-2">Producto seleccionado:</label>
+                    <input type="text" id="selectedProduct" class="w-full px-4 py-2 border rounded-lg bg-gray-100" readonly>
+                </div>
+                
+                <div>
+                    <label class="block text-gray-700 mb-2">Precio:</label>
+                    <input type="text" id="productPrice" class="w-full px-4 py-2 border rounded-lg bg-gray-100" readonly>
+                </div>
+                
+                <div>
+                    <label for="address" class="block text-gray-700 mb-2">Dirección de envío:</label>
+                    <input type="text" id="address" name="address" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" required>
+                </div>
+                
+                <div>
+                    <label for="phone" class="block text-gray-700 mb-2">Número de celular:</label>
+                    <input type="tel" id="phone" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" required>
+                </div>
+                
+                <div>
+                    <label for="email" class="block text-gray-700 mb-2">Correo electrónico:</label>
+                    <input type="email" id="email" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" required>
+                </div>
+                
+                <div class="pt-4">
+                    <button type="submit" class="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition">Confirmar Compra</button>
+                </div>
+                
+                <button type="button" onclick="hideOrderForm()" class="w-full mt-2 text-blue-600 hover:text-blue-800 transition">Cancelar</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="container mx-auto px-6 text-center">
+            <div class="flex justify-center mb-6">
+                <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/160e566a-5de8-4d1e-8350-edea6edddcf9.png" alt="Logo de Proteína Premium con diseño moderno en tonos azules" class="h-12">
+            </div>
+            <p class="mb-4">La mejor calidad en suplementos deportivos</p>
+            <p class="mb-4">Envíos a todo el país en 24-48 horas</p>
+            <p>© 2023 Proteína Premium. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize EmailJS when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            // Replace these with your actual EmailJS credentials
+            emailjs.init('your_user_id_here'); 
+            console.log('EmailJS initialized successfully');
+        });
+
+        function showOrderForm(productName, price) {
+            document.getElementById('selectedProduct').value = productName;
+            document.getElementById('productPrice').value = '$' + price.toFixed(2);
+            document.getElementById('orderForm').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function hideOrderForm() {
+            document.getElementById('orderForm').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        document.getElementById('orderFormContent').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name  = document.getElementById('name').value;
+            const address = document.getElementById('address').value;
+            const phone = document.getElementById('phone').value;
+            const email = document.getElementById('email').value;
+            const product = document.getElementById('selectedProduct').value;
+            const price = document.getElementById('productPrice').value;
+            
+            if (!name|| !address || !phone || !email) {
+                alert('Por favor completa todos los campos');
+                return;
+            }
+            
+            if (!/^\d{10,15}$/.test(phone)) {
+                alert('Por favor ingresa un número de celular válido (10-15 dígitos)');
+                return;
+            }
+            
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                alert('Por favor ingresa un correo electrónico válido');
+                return;
+            }
+            
+            // Initialize EmailJS with your public key
+            emailjs.init('RTslgbHtJ-qCqCEPJ');
+            
+            const templateParams = {
+                name:name,
+                email: email,
+                product_name: product,
+                product_price: price,
+                receipt_number: 'ORD-' + Math.floor(Math.random() * 1000000),
+                customer_phone: phone.substr(0, 3) + '-' + phone.substr(3, 3) + '-' + phone.substr(6),
+                customer_address: address,
+                purchase_date: new Date().toLocaleDateString()
+            };
+            
+            // Send email using EmailJS
+            emailjs.send('service_gqzbjeu', 'template_n9lkg3t', templateParams) // Replace with your service and template IDs
+                .then(function(response) {
+                    // Clear form and notify user
+                    alert(`¡Compra completada exitosamente! ✔️\n\nResumen de pedido:\nProducto: ${product}\nPrecio: ${price}\n\nTu recibo fue enviado a: ${email}\n\nNúmero de pedido: ${templateParams.receipt_number}\n\n¡Gracias por tu compra!`);
+                    hideOrderForm();
+                    document.getElementById('orderFormContent').reset();
+                }, function(error) {
+                    alert('Hubo un error al enviar tu pedido. Por favor intenta nuevamente.');
+                    console.error('EmailJS error:', error);
+                });
+        });
+    </script>
+
+    
+
+</body>
+</html>
+

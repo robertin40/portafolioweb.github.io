@@ -1,0 +1,378 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Queques Artesanales — Delicias de Guiovanni</title>
+  <meta name="description" content="Queques artesanales, frescos y personalizados. Pide online con entrega local. Sabores clásicos y especiales." />
+  <meta name="theme-color" content="#fff3e6" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Queques Artesanales — Delicias de Guiovanni" />
+  <meta property="og:description" content="Compra queques frescos y personalizados. Envíos locales y recogida." />
+  <meta property="og:image" content="img/comprarproducto.JPG" />
+
+  <style>
+    :root{
+      --bg:#fff9f4;
+      --card:#ffffff;
+      --accent:#d97706; /* naranja */
+      --accent-2:#fb923c;
+      --muted:#6b7280;
+      --text:#1f2937;
+      --radius:14px;
+      --container:1100px;
+      --shadow: 0 8px 24px rgba(16,24,40,.08);
+      --gap:18px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: linear-gradient(180deg, #fff 0%, #fff3e6 100%);
+      color:var(--text); -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale; line-height:1.5;
+    }
+
+    /* Layout */
+    .wrap{max-width:var(--container); margin:32px auto; padding:0 20px;}
+    header.site-header{display:flex;align-items:center;justify-content:space-between;gap:12px; margin-bottom:18px;}
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{
+      display:inline-grid;place-items:center;width:54px;height:54px;border-radius:12px;background:linear-gradient(180deg,var(--accent),var(--accent-2)); color:white;font-weight:800;
+      box-shadow:var(--shadow);
+    }
+    .brand h1{font-size:18px;margin:0}
+    nav.site-nav a{color:var(--muted);text-decoration:none;margin-left:12px;font-weight:600}
+    nav.site-nav a.cta{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:white;padding:8px 12px;border-radius:10px}
+
+    /* Hero */
+    .hero{
+      display:grid;grid-template-columns:1fr 420px;gap:24px;align-items:center;margin-bottom:28px;
+    }
+    .hero-card{background:var(--card);border-radius:calc(var(--radius) + 4px);padding:28px;box-shadow:var(--shadow)}
+    .hero-kicker{color:var(--accent);font-weight:800;font-size:13px;margin-bottom:8px}
+    .hero-title{font-size:28px;margin:0 0 10px}
+    .hero-sub{color:var(--muted);margin-bottom:18px}
+    .hero-cta{display:flex;gap:12px;flex-wrap:wrap}
+    .btn{display:inline-flex;align-items:center;gap:10px;padding:12px 16px;border-radius:12px;border:none;cursor:pointer;font-weight:700}
+    .btn-primary{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:white}
+    .btn-outline{background:#fff;border:1px solid #f1f1f1;color:var(--text)}
+    .hero-aside{background:linear-gradient(180deg,#fff, #fff8f0); border-radius:calc(var(--radius) + 6px); padding:18px; text-align:center; box-shadow:var(--shadow)}
+
+    .hero-aside img{width:100%; height:220px; object-fit:cover; border-radius:10px; display:block}
+
+    /* Products */
+    .section-title{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin:24px 0}
+    .section-title h2{margin:0}
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap)}
+    .product{background:var(--card);border-radius:12px;padding:14px;border:1px solid #fff; box-shadow:var(--shadow);display:flex;flex-direction:column}
+    .product .thumb{width:100%;height:180px;border-radius:10px;overflow:hidden;margin-bottom:12px}
+    .product .thumb img{width:100%;height:100%;object-fit:cover;display:block}
+    .product h3{margin:0 0 6px;font-size:16px}
+    .price-row{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:auto}
+    .price{font-weight:800;color:var(--accent)}
+    .add{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#fff;padding:8px 10px;border-radius:10px;border:none;cursor:pointer}
+
+    /* Mini cart */
+    .cart-btn{position:relative;display:inline-flex;align-items:center;gap:8px}
+    .cart-count{position:absolute;right:-8px;top:-8px;background:#ef4444;color:white;border-radius:999px;padding:4px 7px;font-size:12px;box-shadow:0 6px 18px rgba(0,0,0,.12)}
+    .mini-cart{position:fixed;right:18px;bottom:18px;background:var(--card);padding:12px;border-radius:12px;box-shadow:var(--shadow);width:300px;max-width:90%;display:none}
+    .mini-cart.show{display:block}
+
+    /* Contact */
+    .contact-card{background:linear-gradient(180deg,#fff,#fff9f2);padding:18px;border-radius:12px;box-shadow:var(--shadow)}
+    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .input, textarea{width:100%;padding:10px;border-radius:10px;border:1px solid #eee;background:white;font:inherit}
+    textarea{min-height:110px;resize:vertical}
+
+    /* Footer */
+    footer{margin-top:36px;padding:24px;border-radius:12px;text-align:center;color:var(--muted);font-size:14px}
+
+    /* Responsive */
+    @media (max-width:1000px){
+      .hero{grid-template-columns:1fr; }
+      .hero-aside{order:-1}
+      .grid{grid-template-columns:repeat(2,1fr)}
+      .hero-aside img{height:180px}
+    }
+    @media (max-width:640px){
+      .wrap{margin:18px auto;padding:0 12px}
+      .grid{grid-template-columns:1fr}
+      nav.site-nav{display:none} /* simple: hide extra links on very small screens */
+      .brand h1{font-size:16px}
+      .hero-title{font-size:22px}
+      .hero-aside img{height:160px}
+      .product .thumb{height:160px}
+      .form-row{grid-template-columns:1fr}
+      .cart-btn{font-size:14px}
+      .mini-cart{right:12px;left:12px;bottom:12px;width:auto}
+    }
+
+    /* Accessibility focus */
+    a:focus, button:focus, .input:focus, textarea:focus{outline:3px solid #ffdcb6; outline-offset:2px}
+  </style>
+</head>
+<body>
+  <div class="wrap" role="document">
+    <header class="site-header" role="banner">
+      <div class="brand">
+        <div class="logo" aria-hidden="true">Q</div>
+        <div>
+          <h1>Delicias de Guiovanni</h1>
+          <div style="font-size:12px;color:var(--muted)">Queques artesanales • Entrega local</div>
+        </div>
+      </div>
+
+      <div style="display:flex;align-items:center;gap:12px">
+        <nav class="site-nav" aria-label="Navegación principal">
+          <a href="#productos">Productos</a>
+          <a href="#sobre">Sobre</a>
+          <a href="#contacto" class="cta">Contacto</a>
+        </nav>
+
+        <button class="cart-btn" id="openCart" aria-haspopup="true" aria-controls="miniCart" aria-expanded="false" title="Abrir carrito">
+          🧺 Carrito
+          <span class="cart-count" id="cartCount" style="display:none">0</span>
+        </button>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-card" role="region" aria-label="Promoción principal">
+          <div class="hero-kicker">Queques frescos • Hecho hoy</div>
+          <h2 id="hero-title" class="hero-title">Queques artesanales para cada ocasión</h2>
+          <p class="hero-sub">Hechos con ingredientes naturales, decoraciones personalizadas y entrega rápida. Pide tu queque clásico o crea uno a tu gusto.</p>
+
+          <div class="hero-cta">
+            <a href="#productos" class="btn btn-primary">Ver productos</a>
+            <a href="#contacto" class="btn btn-outline">Solicitar cotización</a>
+          </div>
+
+          <ul style="margin:18px 0 0; padding-left:18px; color:var(--muted); font-size:14px">
+            <li>Envío local 24-48h</li>
+            <li>Personalización disponible</li>
+            <li>Garantía de frescura</li>
+          </ul>
+        </div>
+
+        <aside class="hero-aside" aria-label="Imagen del producto destacado">
+          <img src="img/pedido.JPG" alt="Queque decorado sobre mesa">
+          <p style="margin:12px 0 0;font-weight:700">Pedido rápido • Pago en línea o contra entrega</p>
+        </aside>
+      </section>
+
+      <section id="productos" aria-labelledby="prod-title">
+        <div class="section-title">
+          <h2 id="prod-title">Nuestros queques</h2>
+          <div style="color:var(--muted);font-size:14px">Entrega local / Recogida</div>
+        </div>
+
+        <div class="grid" role="list">
+          <!-- Product 1 -->
+          <article class="product" role="listitem" data-id="q1" data-name="Queque Vainilla" data-price="14.50">
+            <div class="thumb"><img src="https://metroio.vtexassets.com/arquivos/ids/595985/236969-1.jpg?v=638878459722970000" alt="Queque de vainilla con glaseado"></div>
+            <h3>Queque Vainilla</h3>
+            <div style="color:var(--muted);font-size:14px">Clásico, esponjoso y con glaseado de vainilla.</div>
+            <div class="price-row">
+              <div class="price">$14.50</div>
+              <button class="add" aria-label="Añadir Queque Vainilla al carrito">Añadir</button>
+            </div>
+          </article>
+
+          <!-- Product 2 -->
+          <article class="product" role="listitem" data-id="q2" data-name="Queque Chocolate" data-price="16.00">
+            <div class="thumb"><img src="https://w7.pngwing.com/pngs/445/762/png-transparent-molten-chocolate-cake-blackout-cake-layer-cake-german-chocolate-cake-cu-cake-baked-goods-food-recipe.png" alt="Queque de chocolate"></div>
+            <h3>Queque Chocolate</h3>
+            <div style="color:var(--muted);font-size:14px">Intenso, húmedo y con cobertura de ganache.</div>
+            <div class="price-row">
+              <div class="price">$16.00</div>
+              <button class="add" aria-label="Añadir Queque Chocolate al carrito">Añadir</button>
+            </div>
+          </article>
+
+          <!-- Product 3 -->
+          <article class="product" role="listitem" data-id="q3" data-name="Queque Zanahoria" data-price="15.00">
+            <div class="thumb"><img src="https://png.pngtree.com/png-vector/20231113/ourmid/pngtree-carrot-cake-perfection-a-slice-of-sweet-creaminess-png-image_10584350.png" alt="Queque de zanahoria"></div>
+            <h3>Queque Zanahoria</h3>
+            <div style="color:var(--muted);font-size:14px">Con especias y crema de queso.</div>
+            <div class="price-row">
+              <div class="price">$15.00</div>
+              <button class="add" aria-label="Añadir Queque Zanahoria al carrito">Añadir</button>
+            </div>
+          </article>
+
+          <!-- Product 4 -->
+          <article class="product" role="listitem" data-id="q4" data-name="Queque Red Velvet" data-price="18.00">
+            <div class="thumb"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6NdwuCM-iFEYcHU1LXXD5cdsUoB8AW8KV-g&s" alt="Queque red velvet"></div>
+            <h3>Queque Red Velvet</h3>
+            <div style="color:var(--muted);font-size:14px">Elegante, suave y con frosting cremoso.</div>
+            <div class="price-row">
+              <div class="price">$18.00</div>
+              <button class="add" aria-label="Añadir Queque Red Velvet al carrito">Añadir</button>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="sobre" style="margin-top:26px">
+        <div style="display:flex;gap:18px;align-items:center;flex-wrap:wrap">
+          <div style="flex:1;min-width:240px">
+            <h3>Sobre nosotros</h3>
+            <p style="color:var(--muted)">Guiovanni prepara cada queque con dedicación, ingredientes locales y decoraciones hechas a mano. Perfecto para cumpleaños, eventos y regalos.</p>
+          </div>
+          <div style="width:320px">
+           
+            <img src="https://logos.textgiraffe.com/logos/logo-name/Giovanni-designstyle-smoothie-m.png" alt="" style="background-image: url(img/fondoazul.avif);width:100%;border-radius:10px;display:block">
+          </div>
+        </div>
+      </section>
+
+      <section id="contacto" style="margin-top:26px">
+        <h2>Contacto & Pedidos</h2>
+        <div style="display:grid;grid-template-columns:1fr 360px;gap:18px;margin-top:12px">
+          <div class="contact-card contact-form">
+            <form id="contactForm" onsubmit="handleContact(event)">
+              <div class="form-row">
+                <input class="input" name="name" placeholder="Tu nombre" required />
+                <input class="input" name="phone" placeholder="Teléfono (opcional)" />
+              </div>
+              <div style="margin-top:12px">
+                <input class="input" name="email" type="email" placeholder="Email" required />
+              </div>
+              <div style="margin-top:12px">
+                <textarea name="message" placeholder="Descripción del pedido (fecha, sabor, tamaño, mensaje)" required></textarea>
+              </div>
+              <div style="margin-top:12px;display:flex;gap:10px;align-items:center">
+                <button class="btn btn-primary" type="submit">Enviar pedido</button>
+                <div id="contactOk" style="display:none;color:green;font-weight:700">¡Mensaje enviado!</div>
+              </div>
+            </form>
+          </div>
+
+          <aside style="align-self:start">
+            <div style="background:var(--card);padding:14px;border-radius:12px;box-shadow:var(--shadow)">
+              <h4 style="margin-top:0">Horarios y entrega</h4>
+              <p style="color:var(--muted);margin:0 0 10px">Pedidos antes de las 3pm para entrega al día siguiente dentro de la ciudad.</p>
+              <strong>Contacto:</strong>
+              <div style="color:var(--muted)">Tel: +56 9 1234 5678<br>Email: pedidos@queques.example</div>
+            </div>
+          </aside>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      © 2025 Delicias de Guiovanni — Hecho con cariño
+    </footer>
+  </div>
+
+  <!-- Mini cart -->
+  <div id="miniCart" class="mini-cart" role="dialog" aria-label="Carrito de compra" aria-hidden="true">
+    <strong>Carrito</strong>
+    <div id="cartItems" style="margin-top:10px"></div>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px">
+      <div style="font-weight:800" id="cartTotal">Total: $0.00</div>
+      <button id="checkout" class="btn btn-primary">Pagar</button>
+    </div>
+  </div>
+
+  <script>
+    // Carrito simple en memoria (cliente)
+    const cart = [];
+    const format = v => Number(v).toFixed(2);
+    const cartCountEl = document.getElementById('cartCount');
+    const cartItemsEl = document.getElementById('cartItems');
+    const cartTotalEl = document.getElementById('cartTotal');
+    const miniCart = document.getElementById('miniCart');
+    const openCartBtn = document.getElementById('openCart');
+
+    function updateCartUI(){
+      if(cart.length === 0){
+        cartCountEl.style.display = 'none';
+        cartItemsEl.innerHTML = '<div style="color:var(--muted)">Carrito vacío</div>';
+        cartTotalEl.textContent = 'Total: $0.00';
+      } else {
+        cartCountEl.style.display = 'inline-block';
+        cartCountEl.textContent = cart.reduce((s,i)=>s + i.qty,0);
+        cartItemsEl.innerHTML = cart.map(item => {
+          return `<div style="display:flex;justify-content:space-between;align-items:center;margin:6px 0">
+                    <div>
+                      <div style="font-weight:700">${item.name}</div>
+                      <div style="color:var(--muted);font-size:13px">${item.qty} × $${format(item.price)}</div>
+                    </div>
+                    <div style="display:flex;gap:8px;align-items:center">
+                      <button data-id="${item.id}" class="cart-dec" aria-label="Disminuir">−</button>
+                      <button data-id="${item.id}" class="cart-inc" aria-label="Aumentar">+</button>
+                    </div>
+                  </div>`;
+        }).join('');
+        const total = cart.reduce((s,i)=>s + i.price * i.qty,0);
+        cartTotalEl.textContent = 'Total: $' + format(total);
+      }
+    }
+
+    // Añadir producto
+    document.querySelectorAll('.product .add').forEach(btn=>{
+      btn.addEventListener('click', (ev)=>{
+        const card = ev.target.closest('.product');
+        const id = card.dataset.id;
+        const name = card.dataset.name;
+        const price = parseFloat(card.dataset.price);
+        const existing = cart.find(i=>i.id===id);
+        if(existing){ existing.qty += 1; } else { cart.push({id,name,price,qty:1}); }
+        updateCartUI();
+        // mostrar mini-cart momentáneamente
+        miniCart.classList.add('show'); miniCart.setAttribute('aria-hidden','false'); openCartBtn.setAttribute('aria-expanded','true');
+        setTimeout(()=>{ miniCart.classList.remove('show'); miniCart.setAttribute('aria-hidden','true'); openCartBtn.setAttribute('aria-expanded','false'); }, 3500);
+      });
+    });
+
+    // Abrir/ocultar carrito
+    openCartBtn.addEventListener('click', ()=>{
+      const shown = miniCart.classList.toggle('show');
+      miniCart.setAttribute('aria-hidden', String(!shown));
+      openCartBtn.setAttribute('aria-expanded', String(shown));
+    });
+
+    // Delegación para botones inc/dec
+    cartItemsEl.addEventListener('click', (ev)=>{
+      const dec = ev.target.closest('.cart-dec');
+      const inc = ev.target.closest('.cart-inc');
+      if(dec || inc){
+        const id = (dec || inc).dataset.id;
+        const it = cart.find(i=>i.id===id);
+        if(!it) return;
+        if(dec){ it.qty = Math.max(0, it.qty - 1); }
+        if(inc){ it.qty += 1; }
+        // remove zeros
+        for(let i = cart.length -1; i>=0; i--){ if(cart[i].qty === 0) cart.splice(i,1); }
+        updateCartUI();
+      }
+    });
+
+    // Checkout (demo)
+    document.getElementById('checkout').addEventListener('click', ()=>{
+      if(cart.length === 0){ alert('El carrito está vacío'); return; }
+      const total = cart.reduce((s,i)=>s + i.price * i.qty,0);
+      alert('Gracias por tu compra demo. Total: $' + format(total) + '\n(Esto es una demo; integra pasarela real para pagos)');
+      cart.length = 0;
+      updateCartUI();
+      miniCart.classList.remove('show'); miniCart.setAttribute('aria-hidden','true');
+    });
+
+    // Contact form demo
+    function handleContact(ev){
+      ev.preventDefault();
+      const ok = document.getElementById('contactOk');
+      ok.style.display = 'inline-block';
+      ev.target.reset();
+      setTimeout(()=> ok.style.display = 'none', 3000);
+    }
+
+    // Inicializar UI
+    updateCartUI();
+  </script>
+</body>
+</html>
